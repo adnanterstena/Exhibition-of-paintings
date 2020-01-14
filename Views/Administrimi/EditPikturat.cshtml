@@ -1,0 +1,136 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<EkspozitaPikturave.Models.Pikturat>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ekspozita Pikturave</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        .divRowIlnine {
+            display: inline-block;
+            height: 60px;
+            width: 100%;
+            padding: 25px;
+            padding-left: 35px;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="WebPikturat" asp-action="Ballina">Ekspozita e Pikturave</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <div class="container">
+        <div class="row">
+            <div class="btn-group-vertical col-sm-2">
+                <ul class="navbar-nav flex-grow-1" style="text-align:center">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="Postimi">Postimi</a>
+                    </li>
+                    <li class="nav-item" style="background-color:azure; padding:5px">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="EditPikturat">Pikturat e mia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="Ekspozitat">Ekspozitat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="MenagjimiBlerjeve">Menaxho Blerjet</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <center>
+                    <h1 style="color:dimgrey">Pikturat</h1>
+                </center>
+                <br />
+
+
+                <table class="table col-md-12">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TitulliPiktures)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataPostimit)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Disponueshmeria)
+                            </th>
+                            <th>
+                                Çmimi
+                            </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@Html.DisplayFor(Model => item.UrlPath)" height="100" width="100" class="figure-img" />
+                                </td>
+                                <td class="align-middle">
+                                    <b>@Html.DisplayFor(modelItem => item.TitulliPiktures)</b>
+                                </td>
+                                <td class="align-middle">
+                                    @Html.DisplayFor(modelItem => item.DataPostimit)
+                                </td>
+                                <td class="align-middle">
+                                    @Html.DisplayFor(modelItem => item.Disponueshmeria)
+                                </td>
+                                <td class="align-middle">
+                                    @Html.DisplayFor(modelItem => item.CmimiPiktures) €
+                                </td>
+                                <td class="align-middle">
+                                    <a asp-action="EditPikturatID" asp-route-id="@item.IdPiktura" class="btn btn-outline-primary"> Edit </a>
+                                </td>
+                                <td class="align-middle">
+                                    <a asp-action="DeletePicture" asp-route-id="@item.IdPiktura" class="btn btn-outline-danger"
+                                       onclick="return confirm('A jeni i sigurt qe doni te fshini pikturen \'@item.TitulliPiktures\'');"> Delete </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                    <nav class="float-lg-right" aria-label="Pikturat navigation example">
+                        <vc:pager paging-list="@Model" />
+                    </nav>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - EkspozitaPikturave - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+</body>
+</html>

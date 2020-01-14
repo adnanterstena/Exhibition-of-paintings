@@ -1,0 +1,40 @@
+﻿@model EkspozitaPikturave.ViewModels.WebPikturatKontakto
+@{
+    ViewData["Title"] = "KontaktoArtistin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-sm-12 container" style="padding:20px" align="center">
+    <form asp-action="Kontakto" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row col-md-8">
+            <div class="col-md-5">
+                <input type="hidden" asp-for="from" class="form-control" />
+                <input name="@Model.from" asp-for="from" class="form-control" disabled />
+            </div>
+
+            <h5 style="padding-top:5px; color:slategray; padding-left:0px" class="col-md-2"> To </h5>
+
+            <div class="col-md-5" style="padding-left:0px">
+                <input type="hidden" asp-for="to" class="form-control" />
+                <input value="@Model.to" class="form-control" disabled />
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group row col-md-8 divRowIlnine">
+            <input asp-for="subject" placeholder="Subject" class="form-control" />
+        </div>
+        <br />
+        <div class="form-group row col-md-8">
+
+            <textarea asp-for="mesazhi" rows="4" class="form-control" placeholder="Mesazhi"></textarea>
+        </div>
+
+        <div class="form-group  col-md-2">
+            <input type="submit" value="Dërgo Mesazhin" class="btn btn-primary" />
+        </div>
+
+    </form>
+</div>

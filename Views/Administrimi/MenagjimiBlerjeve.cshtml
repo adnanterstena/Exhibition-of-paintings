@@ -1,0 +1,134 @@
+﻿@model IEnumerable<EkspozitaPikturave.ViewModels.AdministrimiMenagjimiBlerjeve>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EkspozitaPikturave</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        .divRowIlnine {
+            display: inline-block;
+            height: 60px;
+            width: 100%;
+            padding: 25px;
+            padding-left: 35px;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="WebPikturat" asp-action="Ballina">Ekspozita e Pikturave</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <div class="container">
+        <div class="row">
+            <div class="btn-group-vertical col-sm-2">
+                <ul class="navbar-nav flex-grow-1" style="text-align:center">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="Postimi">Postimi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="EditPikturat">Pikturat e mia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="Ekspozitat">Ekspozitat</a>
+                    </li>
+                    <li class="nav-item" style="background-color:azure; padding:5px">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="MenagjimiBlerjeve">Menaxho Blerjet</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="col-sm-10">
+
+                <center>
+                    <h1 style="color:dimgrey">Menaxho Blerjet</h1>
+                </center>
+                <hr />
+                <p style="color:orangered">Njoftim: Kërkesat të cilat nuk miratohen apo refuzohen brenda 5 ditëve, do të refuzohen në menyrë automatike nga sistemi.</p>
+
+                <div class="row scro" style="overflow-y: scroll; height:450px; border-style:inset; padding:25px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        Titulli
+                                    </th>
+                                    <th>
+                                        Çmimi
+                                    </th>
+                                    <th>
+                                        Id-ja shportes
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Html.DisplayFor(modelItem => item.UrlPiktura)" data-size="1600x1067">
+                                                <img src="@Html.DisplayFor(modelItem => item.UrlPiktura)" height="50" width="50" />
+                                            </a>
+
+                                        </td>
+                                        <td class="align-middle">
+                                            <b>
+                                                @Html.DisplayFor(modelItem => item.Titulli)
+                                            </b>
+                                        </td>
+                                        <td class="align-middle">
+                                            @Html.DisplayFor(modelItem => item.Cmimi) €
+                                        </td>
+                                        <td class="align-middle">
+                                            <a asp-action="KonfirmimiBlerjeve" asp-route-id="@item.idShporta" class="btn btn-outline-info"
+                                               onclick="return confirm('A jeni i sigurt qe doni te konfirmoni shitjen e piktures \'@Html.DisplayFor(modelItem => item.Titulli)\'');"> Konfirmo Blerjen </a>
+
+                                            <a asp-action="FshirjaKerkesesPerBlerje" asp-route-id="@item.idShporta" class="btn btn-outline-danger"
+                                               onclick="return confirm('A jeni i sigurt qe doni te refuzoni kerkesen per shitjen e piktures \'@Html.DisplayFor(modelItem => item.Titulli)\'');">  X  </a>
+                                        </td>
+
+
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                </div>
+
+            </div>
+
+    </div>
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - EkspozitaPikturave - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+</body>
+</html>

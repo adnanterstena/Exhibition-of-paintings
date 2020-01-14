@@ -1,0 +1,164 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<EkspozitaPikturave.Models.Pikturat>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+
+@{
+    ViewData["Title"] = "Pikturat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<center><h1 style="color:dimgrey">Pikturat</h1></center>
+<hr />
+<br />
+
+<table>
+
+    <tbody>
+        @for (int i = 0; i < Model.Count(); i = i + 3)
+        {
+        <tr class="row" style="padding-top:25px">
+            <td class="col-md-4">
+                <div style="font-family:'Helvetica', cursive, sans-serif; background-color:whitesmoke; padding:15px; height:590px">
+
+                    <div class="col-md-12" style="height:330px">
+                        <center><h3> <b>@Model.ElementAt(i).TitulliPiktures</b></h3></center>
+                        <div style="text-align:center" class="col-md-12">
+                            <a href="@Model.ElementAt(i).UrlPath" data-size="1600x1067">
+                                <img alt="picture" src="@Model.ElementAt(i).UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                            </a>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                        <h6 class="col-md-6"><b>@Model.ElementAt(i).Karakteristikat</b></h6>
+                        <p class="col-md-6" style="text-align:right"><b>@Html.DisplayNameFor(model => model.LLojiPiktures) <br /></b>@Model.ElementAt(i).LLojiPiktures</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>@Html.DisplayNameFor(model => model.DataPostimit) <br /></b>@Model.ElementAt(i).DataPostimit </p>
+                        </div>
+                        <p class="col-md-6" style="text-align:right"><b>@Html.DisplayNameFor(model => model.Disponueshmeria)<br /> </b>@Model.ElementAt(i).Disponueshmeria</p>
+                    </div>
+
+                    <div class="row">
+                        <a class="col-md-3 btn-light" title="Dërgo Mesazh" asp-action="Kritika" asp-route-id="@Model.ElementAt(i).IdPiktura"><img src="~/Upload/Images/write-comment-1763442-1501186.png" class="img-fluid" /></a>
+                        <div class="col-md-6"><center><h6><b>@Html.DisplayNameFor(model => model.CmimiPiktures)<br /> </b>@Model.ElementAt(i).CmimiPiktures €</h6></center></div>
+                        <a class="col-md-3 btn-light" title="Shto në Shportë"
+                           onclick="return confirm('A jeni i sigurt qe doni te rezervoni pikturen \'@Model.ElementAt(i).TitulliPiktures\'');"
+                           asp-action="ShportaBlerja"
+                           asp-route-id="@Model.ElementAt(i).IdPiktura"
+                           asp-route-cmimi="@Model.ElementAt(i).CmimiPiktures">
+                            <img src="~/Upload/Images/add-to-cart-png.png" class="img-fluid" />
+                        </a>
+                    </div>
+                </div>
+            </td>
+            @if (i + 2 <= Model.Count)
+            {
+                <td class="col-md-4">
+                    <div style="font-family:'Helvetica', cursive, sans-serif; background-color:whitesmoke; padding:15px; height:590px">
+
+                        <div class="col-md-12">
+                            <center><h3> <b>@Model.ElementAt(i + 1).TitulliPiktures</b></h3></center>
+                            <div style="text-align:center" class="col-md-12">
+                                <a href="@Model.ElementAt(i+1).UrlPath" data-size="1600x1067">
+                                    <img alt="picture" src="@Model.ElementAt(i+1).UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                </a>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <h6 class="col-md-6"><b>@Model.ElementAt(i + 1).Karakteristikat</b></h6>
+                            <p class="col-md-6" style="text-align:right"><b>@Html.DisplayNameFor(model => model.LLojiPiktures) <br /></b>@Model.ElementAt(i + 1).LLojiPiktures</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><b>@Html.DisplayNameFor(model => model.DataPostimit) <br /></b>@Model.ElementAt(i + 1).DataPostimit </p>
+                            </div>
+                            <p class="col-md-6" style="text-align:right"><b>@Html.DisplayNameFor(model => model.Disponueshmeria)<br /> </b>@Model.ElementAt(i + 1).Disponueshmeria</p>
+                        </div>
+
+                        <div class="row">
+                            <a class="col-md-3 btn-light" title="Dërgo Mesazh" asp-action="Kritika" asp-route-id="@Model.ElementAt(i+1).IdPiktura"><img src="~/Upload/Images/write-comment-1763442-1501186.png" class="img-fluid" /></a>
+                            <div class="col-md-6"><center><h6><b>@Html.DisplayNameFor(model => model.CmimiPiktures)<br /> </b>@Model.ElementAt(i + 1).CmimiPiktures €</h6></center></div>
+                            <a class="col-md-3 btn-light" title="Shto në Shportë"
+                               onclick="return confirm('A jeni i sigurt qe doni te rezervoni pikturen \'@Model.ElementAt(i + 1).TitulliPiktures\'');"
+                               asp-action="ShportaBlerja"
+                               asp-route-id="@Model.ElementAt(i + 1).IdPiktura"
+                               asp-route-cmimi="@Model.ElementAt(i + 1).CmimiPiktures">
+                                <img src="~/Upload/Images/add-to-cart-png.png" class="img-fluid" />
+                            </a>
+                        </div>
+
+
+
+                    </div>
+                </td>
+            }
+
+            @if (i + 3 <= Model.Count)
+            {
+                <td class="col-md-4">
+                    <div style="font-family:'Helvetica', cursive, sans-serif; background-color:whitesmoke; padding:15px; height:590px">
+
+                        <div class="col-md-12">
+                            <center><h3> <b>@Model.ElementAt(i + 2).TitulliPiktures</b></h3></center>
+                            <div style="text-align:center" class="col-md-12">
+                                <a href="@Model.ElementAt(i + 2).UrlPath" data-size="1600x1067">
+                                    <img alt="picture" src="@Model.ElementAt(i + 2).UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                </a>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <h6 class="col-md-6"><b>@Model.ElementAt(i + 2).Karakteristikat</b></h6>
+                            <p class="col-md-6" style="text-align:right"><b>@Html.DisplayNameFor(model => model.LLojiPiktures) <br /></b>@Model.ElementAt(i + 2).LLojiPiktures</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><b>@Html.DisplayNameFor(model => model.DataPostimit) <br /></b>@Model.ElementAt(i + 2).DataPostimit </p>
+                            </div>
+                            <p class="col-md-6" style="text-align:right"><b>@Html.DisplayNameFor(model => model.Disponueshmeria)<br /> </b>@Model.ElementAt(i + 2).Disponueshmeria</p>
+                        </div>
+
+                        <div class="row">
+                            <a class="col-md-3 btn-light" title="Dërgo Mesazh" asp-action="Kritika" asp-route-id="@Model.ElementAt(i + 2).IdPiktura"><img src="~/Upload/Images/write-comment-1763442-1501186.png" class="img-fluid" /></a>
+                            <div class="col-md-6"><center><h6><b>@Html.DisplayNameFor(model => model.CmimiPiktures)<br /> </b>@Model.ElementAt(i + 2).CmimiPiktures €</h6></center></div>
+                            <a class="col-md-3 btn-light" title="Shto në Shportë"
+                               onclick="return confirm('A jeni i sigurt qe doni te rezervoni pikturen \'@Model.ElementAt(i + 2).TitulliPiktures\'');"
+                               asp-action="ShportaBlerja"
+                               asp-route-id="@Model.ElementAt(i + 2).IdPiktura"
+                               asp-route-cmimi="@Model.ElementAt(i + 2).CmimiPiktures">
+                                <img src="~/Upload/Images/add-to-cart-png.png" class="img-fluid" />
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            }
+            </tr>
+        }
+    </tbody>
+
+</table>
+<br />
+<br />
+<div style="text-align:center">
+    <nav aria-label="Pikturat navigation example" style="display:inline-block">
+        <vc:pager paging-list="@Model" />
+    </nav>
+</div>
+<br /><br />
+
+
+

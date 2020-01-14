@@ -1,0 +1,62 @@
+﻿@model EkspozitaPikturave.ViewModels.WebPikturatKritika
+@{
+    ViewData["Title"] = "Kritika";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <a asp-action="Pikturat" class="btn btn-outline-info">Kthehu te Pikturat</a>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="@Model.UrlPath" class="img-fluid col-md-12" />
+        <div>
+            <br />
+            <h6 class="col-md-8 float-left"><b>@Model.TitulliPiktures</b></h6>
+            <h6 class="col-md-4 d-inline-block">@Model.Disponueshmeria</h6>
+        </div>
+        <hr class="col-md-12 float-left" />
+        <div class="row col-md-12">
+            <p><b>Pershkrimi:</b> <br />@Model.Pershkrimi</p>
+        </div>
+    </div>
+
+   
+    <div class="col-md-6" style="padding-left:25px; font-family:'Comic Sans MS', cursive, sans-serif">
+
+        <div style="overflow-y: scroll; height:400px; border-style:inset; padding:20px">
+            @foreach (var item in Model.komentet)
+            {
+
+                <div>
+                    <p><b>@item.Id_Useri</b></p>
+                    <p> <u>Kritika</u>: @item.TekstiKritikes</p>
+                    <hr />
+                </div>
+            }
+        </div>
+        <br />
+            <div class="col-md-12">
+                <form asp-action="Kritika">
+                    <div asp-validation-summary="None" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="@Model.Kritikat.Id_Piktura" value="@ViewBag.IDPiktura" class="form-control" />
+                    <div class="form-group">
+                        <label asp-for="@Model.Kritikat.TekstiKritikes" class="control-label"></label>
+                        <textarea asp-for="@Model.Kritikat.TekstiKritikes" rows="4" class="form-control"></textarea>
+                        @*<textarea asp-for="Pershkrimi" rows="4" class="form-control" style="margin-left:10px"></textarea>*@
+                        <span asp-validation-for="@Model.Kritikat.TekstiKritikes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Posto Kritiken" class="btn btn-primary float-lg-right" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+</div>
+

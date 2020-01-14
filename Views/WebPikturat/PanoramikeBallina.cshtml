@@ -1,0 +1,42 @@
+﻿@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+<br />
+
+<center><h1 style="color:dimgrey">Panoramike</h1></center>
+
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px;">
+                @for (int i = 0; i < ViewBag.PanoramikeBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:rgba(14, 73, 0, 0.15); padding:15px; width:285px">
+
+                            <div style="height:360px">
+                                <center><h3 style="height:65px"> <b>@ViewBag.PanoramikeBallina[i].TitulliPiktures</b></h3></center>
+                                <div style="text-align:center">
+                                    <a href="@ViewBag.PanoramikeBallina[i].UrlPath" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.PanoramikeBallina[i].UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.PanoramikeBallina[i].LLojiPiktures </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="float-lg-left" style="padding-left:45px; color:white">
+    <a class="btn btn-info" asp-area="" asp-controller="WebPikturat" asp-action="Ballina">Kthehu te Ballina</a>
+</div>
+<nav aria-label="Pikturat navigation example" class="float-lg-right">
+    <vc:pager paging-list="@ViewBag.PanoramikeBallina" />
+</nav>
+
+<br />
+<br />

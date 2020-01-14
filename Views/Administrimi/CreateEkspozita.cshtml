@@ -1,0 +1,189 @@
+﻿@model EkspozitaPikturave.ViewModels.CreateEkspozitaModel
+
+@{
+    ViewData["Title"] = "Krijo Ekspoziten";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ekspozita Pikturave</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="WebPikturat" asp-action="Ballina">Ekspozita e Pikturave</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <center>
+        <h3 style="color:dimgrey">Zgjidh pikturat për ekspozitën e re</h3>
+    </center>
+    <hr />
+
+
+    <div class="container-fluid">
+
+
+
+
+        <form asp-action="CreateEkspozita" enctype="multipart/form-data">
+            <div asp-validation-summary="None" class="text-danger"></div>
+            <div class="row">
+
+
+                <div class="col-md-5 ">
+
+                    <a class="btn btn-outline-info row" style="margin-left:20px"  asp-area="" asp-controller="Administrimi" asp-action="Ekspozitat"> Kthehu te Ekspozitat</a>
+                    <br />
+                    <br />
+                    <br />
+                    <center>
+                        <div class="form-group col-md-6">
+                            <label asp-for="@Model._ekspozita.Titulli" class="control-label"></label><b style="color:red"> *</b>
+                            <input asp-for="@Model._ekspozita.Titulli" class="form-control" style="margin-left:10px" />
+                            <span asp-validation-for="@Model._ekspozita.Titulli" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-sm-10 " style="padding-top:0px">
+                            <label asp-for="@Model._ekspozita.Pershkrimi" class="control-label"></label>
+                            <textarea asp-for="@Model._ekspozita.Pershkrimi" rows="4" class="form-control" style="margin-left:10px"></textarea>
+                            <span asp-validation-for="@Model._ekspozita.Pershkrimi" class="text-danger"></span>
+                        </div>
+                    </center>
+                    <div class="form-group  col-sm-10">
+                        <label class="col-sm-4 col-form-label">Piktura <b style="color:red">*</b></label>
+                        <div class="col-sm-10">
+                            <div class="custom-file">
+                                <input class="form-control custom-file-input" type="file" name="file" accept=".jpg,.jpeg,.png,.gif" />
+                                <label class="custom-file-label">Browse...</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="table col-md-6">
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="form-group col-md-4">
+                            <input type="submit" value="Ruaje Ekspoziten" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+                    <div style="overflow-y: scroll; height:480px; border-style:inset; padding-left:20px; padding-top:15px">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        Titulli
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model._pikturat[0].DataPostimit)
+                                    </th>
+                                    <th>
+                                        Gjendja
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model._pikturat)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            <img src="@Html.DisplayFor(Model => item.UrlPath)" height="50" width="50" class="figure-img" />
+                                        </td>
+                                        <td class="align-middle">
+                                            <b>@Html.DisplayFor(modelItem => item.TitulliPiktures)</b>
+                                        </td>
+                                        <td class="align-middle">
+                                            @Html.DisplayFor(modelItem => item.DataPostimit)
+                                        </td>
+                                        <td class="align-middle">
+                                            @Html.DisplayFor(modelItem => item.Disponueshmeria)
+                                        </td>
+                                        <td class="align-middle">
+
+                                            <a picture_id="@item.IdPiktura" class="btn btn-outline-primary btnIdPhoto"> Shto </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            <hr />
+            <br />
+
+
+
+
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.btnIdPhoto').on('click', function () {
+                        var picID = $(this).attr('picture_id');
+                        var user = {
+                            idPiktura: picID
+                        }
+
+                        var removeButton = this.parentNode.removeChild(this);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Administrimi/addIdPictures",
+                            data: user,
+                            success: function () {
+                                removeButton;
+                            }
+                        });
+
+                    });
+
+                });
+
+
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".custom-file-input").on("change", function () {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).next(".custom-file-label").html(fileName);
+                    })
+
+                });
+
+            </script>
+
+
+
+        </form>
+    </div>
+</body>
+</html>

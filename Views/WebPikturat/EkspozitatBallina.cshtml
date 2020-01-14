@@ -1,0 +1,41 @@
+﻿@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+<br />
+
+<center><h1 style="color:dimgrey">Ekspozitat</h1></center>
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px;">
+                @for (int i = 0; i < ViewBag.EkspozitatBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:rgba(255, 0, 0, 0.10); padding:15px; width:285px">
+
+                            <div style="height:360px">
+                                <center><h3 style="height:65px"> <b>@ViewBag.EkspozitatBallina[i].Titulli</b></h3></center>
+                                <div style="text-align:center">
+                                    <a asp-action="Ekspozita" asp-route-id="@ViewBag.EkspozitatBallina[i].Id_Ekspozites" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.EkspozitatBallina[i].FotojaURL" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.EkspozitatBallina[i].uzerEmail </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="float-lg-left" style="padding-left:45px; color:white">
+    <a class="btn btn-info" asp-area="" asp-controller="WebPikturat" asp-action="Ballina">Kthehu te Ballina</a>
+</div>
+<nav aria-label="Pikturat navigation example" class="float-lg-right">
+    <vc:pager paging-list="@ViewBag.EkspozitatBallina" />
+</nav>
+
+<br />
+<br />

@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="ShportaBlerjeve"><img src="~/Upload/Images/Shopping-Cart-12.png" height="25" width="29" /></a>
+            </li>
+            @if((SignInManager.IsSignedIn(User) && User.IsInRole("Piktor")) || (SignInManager.IsSignedIn(User) && User.IsInRole("Trashegimtar"))) 
+            {
+            <li class="nav-item" style="background-color:aliceblue; border-radius:5px">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="Postimi">Menaxhimi</a>
+            </li> 
+            }
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Ballina", "WebPikturat", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Regjistrohu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+        }
+    </ul>
+

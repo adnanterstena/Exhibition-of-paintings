@@ -1,0 +1,94 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profili";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+
+
+            @*<div class="form-group">
+            <label asp-for="InputRoles.Roles"></label>
+            <input asp-for="InputRoles.Roles" class="form-control" />
+            <span asp-validation-for="InputRoles.Roles" class="text-danger"></span>
+        </div>*@
+
+            <div class="form-group">
+                <label asp-for="InputRoles.Roles"></label>
+                <select asp-for="InputRoles.Roles" class="form-control">
+                    <option value="Klient">Klient</option>
+                    <option value="Piktor">Piktor</option>
+                    <option value="Trashegimtar">Trashegimtar</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+
+            @*<span class="wpcf7-form-control-wrap">
+        <input type="file" name="your-file" size="40" class="wpcf7-form-control wpcf7-file custom-file-input" id="your-file" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx" aria-invalid="false">
+        </span>
+        <label class="custom-file-label" for="your-file">Your file</label>*@
+
+            <div class="form-group">
+                <label class="col-sm-10 col-form-label">Fotoja Profilit:</label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input class="form-control custom-file-input" type="file" name="file" accept=".jpg,.jpeg,.png,.gif" />
+                        <label class="custom-file-label">Browse...</label>
+                    </div>
+
+                </div>
+            </div>
+
+            <br />
+
+
+
+            <div class="form-group">
+                <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+            </div>
+            <br />
+        </form>
+
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".custom-file-input").on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next(".custom-file-label").html(fileName);
+                })
+
+            });
+
+        </script>
+
+    </div>
+
+    <div class="col-md-2 card-img-bottom">
+        @*Fotoja e profilit*@
+        <img src='@Model.profilePhoto' height="350"  />
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

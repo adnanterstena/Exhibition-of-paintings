@@ -1,0 +1,40 @@
+﻿@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+<br />
+<center><h1 style="color:dimgrey">Më të rejat</h1></center>
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px">
+                @for (int i = 0; i < ViewBag.PikturatBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:whitesmoke; padding:15px; width:285px">
+
+                            <div style="height:330px">
+                                <center><h3> <b>@ViewBag.PikturatBallina[i].TitulliPiktures</b></h3></center>
+                                <div style="text-align:center">
+                                    <a href="@ViewBag.PikturatBallina[i].UrlPath" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.PikturatBallina[i].UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.PikturatBallina[i].DataPostimit </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="float-lg-left" style="padding-left:45px; color:white">
+    <a class="btn btn-info" asp-area="" asp-controller="WebPikturat" asp-action="Ballina">Kthehu te Ballina</a>
+</div>
+<nav aria-label="Pikturat navigation example" class="float-lg-right">
+    <vc:pager paging-list="@ViewBag.PikturatBallina" />
+</nav>
+
+<br />
+<br />

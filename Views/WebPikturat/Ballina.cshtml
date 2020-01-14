@@ -1,0 +1,245 @@
+﻿@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Ballina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<center><h1 style="color:dimgrey">Më të rejat</h1></center>
+
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px">
+                @for (int i = 0; i < ViewBag.PikturatBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:whitesmoke; padding:15px; width:285px">
+
+                            <div style="height:330px">
+                                <center><h3> <b>@ViewBag.PikturatBallina[i].TitulliPiktures</b></h3></center>
+                                <div style="text-align:center">
+                                    <a href="@ViewBag.PikturatBallina[i].UrlPath" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.PikturatBallina[i].UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.PikturatBallina[i].DataPostimit </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="btn btn-light float-lg-right">
+    <a class="nav-link text-dark" asp-area="" asp-controller="WebPikturat" asp-action="PikturatBallina">Shiko më shumë... </a>
+</div>
+
+<br />
+<br />
+<hr />
+<br />
+<hr />
+<br />
+
+<center><h1 style="color:dimgrey">Ekspozitat</h1></center>
+
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px;">
+                @for (int i = 0; i < ViewBag.EkspozitatBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:rgba(255, 0, 0, 0.10); padding:15px; width:285px">
+
+                            <div style="height:360px">
+                                <center><h3 style="height:65px"> <b>@ViewBag.EkspozitatBallina[i].Titulli</b></h3></center>
+                                <div style="text-align:center">
+                                    <a asp-action="Ekspozita" asp-route-id="@ViewBag.EkspozitatBallina[i].Id_Ekspozites" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.EkspozitatBallina[i].FotojaURL" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.EkspozitatBallina[i].uzerEmail </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="btn btn-light float-lg-right">
+    <a class="nav-link text-dark" asp-area="" asp-controller="WebPikturat" asp-action="EkspozitatBallina">Shiko më shumë... </a>
+</div>
+
+<br />
+<br />
+
+<hr />
+<br />
+<hr />
+<br />
+
+<center><h1 style="color:dimgrey">Panoramike</h1></center>
+
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px;">
+                @for (int i = 0; i < ViewBag.PanoramikeBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:rgba(14, 73, 0, 0.15); padding:15px; width:285px">
+
+                            <div style="height:360px">
+                                <center><h3 style="height:65px"> <b>@ViewBag.PanoramikeBallina[i].TitulliPiktures</b></h3></center>
+                                <div style="text-align:center">
+                                    <a href="@ViewBag.PanoramikeBallina[i].UrlPath" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.PanoramikeBallina[i].UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.PanoramikeBallina[i].LLojiPiktures </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="btn btn-light float-lg-right">
+    <a class="nav-link text-dark" asp-area="" asp-controller="WebPikturat" asp-action="PanoramikeBallina">Shiko më shumë... </a>
+</div>
+<br />
+<br />
+<hr />
+<br />
+<hr />
+<br />
+
+<center><h1 style="color:dimgrey">Natyre</h1></center>
+
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px;">
+                @for (int i = 0; i < ViewBag.NatyreBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:rgba(0, 255, 33, 0.11); padding:15px;height:400px; width:285px">
+
+                            <div style="height:360px">
+                                <center><h3 style="height:65px"> <b>@ViewBag.NatyreBallina[i].TitulliPiktures</b></h3></center>
+                                <div style="text-align:center">
+                                    <a href="@ViewBag.NatyreBallina[i].UrlPath" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.NatyreBallina[i].UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.NatyreBallina[i].LLojiPiktures </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="btn btn-light float-lg-right">
+    <a class="nav-link text-dark" asp-area="" asp-controller="WebPikturat" asp-action="NatyreBallina">Shiko më shumë... </a>
+</div>
+
+<br />
+<br />
+
+<hr />
+<br />
+<hr />
+<br />
+
+<center><h1 style="color:dimgrey">Abstrakte</h1></center>
+
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px;">
+                @for (int i = 0; i < ViewBag.AbstrakteBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:rgba(255, 106, 0, 0.11); padding:15px;height:400px; width:285px">
+
+                            <div style="height:360px">
+                                <center><h3 style="height:65px"> <b>@ViewBag.AbstrakteBallina[i].TitulliPiktures</b></h3></center>
+                                <div style="text-align:center">
+                                    <a href="@ViewBag.AbstrakteBallina[i].UrlPath" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.AbstrakteBallina[i].UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.AbstrakteBallina[i].LLojiPiktures </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="btn btn-light float-lg-right">
+    <a class="nav-link text-dark" asp-area="" asp-controller="WebPikturat" asp-action="AbstrakteBallina">Shiko më shumë... </a>
+</div>
+<br />
+<br />
+
+<hr />
+<br />
+<hr />
+<br />
+
+<center><h1 style="color:dimgrey">Pikturat Bardh dhe Zi</h1></center>
+
+
+<div style="text-align:center">
+    <table style="display:inline-block">
+        <tbody>
+            <tr style="padding-top:25px;">
+                @for (int i = 0; i < ViewBag.BardhDheZiBallina.Count; i++)
+                {
+
+                    <td>
+                        <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:rgba(72, 0, 255, 0.11); padding:15px;height:400px; width:285px">
+
+                            <div style="height:360px">
+                                <center><h3 style="height:65px"> <b>@ViewBag.BardhDheZiBallina[i].TitulliPiktures</b></h3></center>
+                                <div style="text-align:center">
+                                    <a href="@ViewBag.BardhDheZiBallina[i].UrlPath" data-size="1600x1067">
+                                        <img alt="picture" src="@ViewBag.BardhDheZiBallina[i].UrlPath" height=275 style="max-width: 100%" class="figure-img">
+                                    </a>
+                                </div>
+                            </div>
+                            <center> <p>@ViewBag.BardhDheZiBallina[i].LLojiPiktures </p> </center>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="btn btn-light float-lg-right">
+    <a class="nav-link text-dark" asp-area="" asp-controller="WebPikturat" asp-action="BardhDheZiBallina">Shiko më shumë... </a>
+</div>
+
+<br />
+<br />

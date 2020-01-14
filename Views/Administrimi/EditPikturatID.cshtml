@@ -1,0 +1,210 @@
+﻿@model EkspozitaPikturave.Models.Pikturat
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EkspozitaPikturave</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        .divRowIlnine {
+            display: inline-block;
+            height: 60px;
+            width: 100%;
+            padding: 25px;
+            padding-left: 35px;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="WebPikturat" asp-action="Ballina">Ekspozita e Pikturave</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <div class="container">
+        <div class="row">
+            <div class="btn-group-vertical col-sm-2">
+                <ul class="navbar-nav flex-grow-1" style="text-align:center">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="Postimi">Postimi</a>
+                    </li>
+                    <li class="nav-item" style="background-color:azure; padding:5px">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="EditPikturat">Pikturat e mia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="Ekspozitat">Ekspozitat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Administrimi" asp-action="MenagjimiBlerjeve">Menaxho Blerjet</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+
+            <div>
+                <div>
+                    <h1 style="color:dimgrey">Ndrysho Pikturen</h1>
+                    <hr />
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-12 containerPikturave">
+                        <form asp-action="EditPikturatID" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <input type="hidden" asp-for="IdPiktura" />
+                            <input type="hidden" asp-for="DataPostimit" />
+
+                            <input type="hidden" asp-for="UrlPath" class="form-control" />
+
+                            <input type="hidden" asp-for="Ekspozitat" class="form-control" />
+                            <input type="hidden" asp-for="Shporta" class="form-control" />
+
+
+                            <div>
+
+                                <div class="form-group col-sm-5 divRowIlnine">
+                                    <label asp-for="TitulliPiktures" class="control-label"></label><b style="color:red"> *</b>
+                                    <input asp-for="TitulliPiktures" class="form-control" />
+                                    <span asp-validation-for="TitulliPiktures" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group  col-sm-5 divRowIlnine">
+                                    <label asp-for="LLojiPiktures" class="control-label"></label>
+                                    <input asp-for="LLojiPiktures" class="form-control" />
+                                    <span asp-validation-for="LLojiPiktures" class="text-danger"></span>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div style="height:170px; padding:20px; padding-left:0px;" class="row">
+
+                                <div class="form-group col-sm-7 divRowIlnine" style="padding-top:0px">
+                                    <label asp-for="Pershkrimi" class="control-label"></label>
+                                    <textarea asp-for="Pershkrimi" rows="4" class="form-control" style="margin-left:10px"></textarea>
+                                    <span asp-validation-for="Pershkrimi" class="text-danger"></span>
+                                </div>
+
+                                <img src="@Model.UrlPath.Substring(2)" height="145" class="figure-img" style="padding-top:30px; padding-left:55px" />
+                            </div>
+
+
+                            <div>
+                                <div class="form-group  col-sm-5 divRowIlnine">
+                                    <label asp-for="Karakteristikat" class="control-label"></label>
+                                    <input asp-for="Karakteristikat" class="form-control" />
+                                    <span asp-validation-for="Karakteristikat" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group  col-sm-5 divRowIlnine">
+                                    <label asp-for="CmimiPiktures" class="control-label"></label><b style="color:red"> *</b>
+                                    <div class="row ">
+                                        <input asp-for="CmimiPiktures" class="form-control col-md-10" />
+                                        <input value="  €" disabled class="form-control col-md-2" />
+                                    </div>
+                                    <span asp-validation-for="CmimiPiktures" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div>
+
+
+                                <div class="form-group col-sm-8 divRowIlnine">
+                                    <label asp-for="Disponueshmeria" class="control-label"></label> <b style="color:red"> *</b><br />
+                                    <center>
+                                        <input id="dispoInput" asp-for="Disponueshmeria" class="form-control col-md-4" readonly />
+
+                                        <span asp-validation-for="Disponueshmeria" class="text-danger"></span>
+
+                                        <label style="padding-left:20px">
+                                            <input type="checkbox" onclick="thayTheLoai();" class="btn btn-group messageCheckbox" value="Shitur" name="disp[1][]" />Shitur
+                                        </label>
+                                        <label style="padding-left:40px">
+                                            <input type="checkbox" onclick="thayTheLoai();" class="btn btn-group messageCheckbox" value="Rezervuar" name="disp[1][]" />Rezervuar
+                                        </label>
+                                        <label style="padding-left:40px">
+                                            <input type="checkbox" onclick="thayTheLoai();" class="btn btn-group messageCheckbox" value="Jo e Shitur" name="disp[1][]" />Jo e Shitur
+                                        </label>
+                                    </center>
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("input:checkbox").on('click', function () {
+                                                // in the handler, 'this' refers to the box clicked on
+                                                var $box = $(this);
+                                                if ($box.is(":checked")) {
+                                                    // the name of the box is retrieved using the .attr() method
+                                                    // as it is assumed and expected to be immutable
+                                                    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                                                    // the checked state of the group/box on the other hand will change
+                                                    // and the current value is retrieved using .prop() method
+                                                    $(group).prop("checked", false);
+                                                    $box.prop("checked", true);
+
+
+                                                } else {
+                                                    $box.prop("checked", false);
+                                                }
+                                                var checkboxVal = document.querySelector('.messageCheckbox:checked').value;
+                                                $('#dispoInput').val(checkboxVal);
+                                            });
+                                            var checkboxVal = document.querySelector('.messageCheckbox:checked').value;
+                                            $('#dispoInput').val(checkboxVal);
+                                            thayTheLoai();
+                                        });
+                                    </script>
+                                </div>
+                                <div class="form-group  col-sm-2 divRowIlnine">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-2 float-lg-right">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - EkspozitaPikturave - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+</body>
+</html>

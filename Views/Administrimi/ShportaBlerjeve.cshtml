@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EkspozitaPikturave.ViewModels.AdministrimiShportaBlerjeve>
+@{
+    ViewData["Title"] = "Shporta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="overflow-y: scroll; height:590px; border-style:inset; padding:25px">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    Titulli
+                </th>
+                <th>
+                    Çmimi
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Blerja)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.urlPiktura)" height="50" width="50" />
+
+                    </td>
+                    <td class="align-middle">
+                        <b>@Html.DisplayFor(modelItem => item.titulliPiktures)</b>
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.cmimi) €
+                    </td>
+                    <td style="color:darkblue" class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Blerja)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

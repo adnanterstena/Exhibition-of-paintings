@@ -1,0 +1,54 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<EkspozitaPikturave.Models.Ekspozitat>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Ekspozitat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<center><h1 style="color:dimgrey">Ekspozitat</h1></center>
+
+<br />
+
+<center>
+    <div class="col-md-10">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Titulli)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pershkrimi)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img src="@Html.DisplayFor(modelItem => item.FotojaURL)" height="70" width="70" class="figure-img" />
+                        </td>
+                        <td class="align-middle">
+                            <b>@Html.DisplayFor(modelItem => item.Titulli)</b>
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Pershkrimi)
+                        </td>
+                        <td class="align-middle">
+                            <a asp-action="Ekspozita" asp-route-id="@item.Id_Ekspozites" class="btn btn-outline-info"> Shiko Pikturat</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav class="float-lg-right"  aria-label="Pikturat navigation example">
+            <vc:pager paging-list="@Model" />
+        </nav>
+    </div>
+</center>

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<EkspozitaPikturave.ViewModels.WebPikturatEkspozita>
+@{
+    ViewData["Title"] = "Ekspozita";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div>
+    <a asp-action="Ekspozitat" class="btn btn-outline-info">Ekspozitat</a>
+</div>
+<br />
+<div style="overflow-y: scroll; height:520px; border-style:inset; padding:20px">
+    <table class="table">
+
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i = i + 4)
+            {
+
+                <tr style="font-family:'Comic Sans MS', cursive, sans-serif">
+                    <td width="280px" height="400px">
+                        <center>
+                            <h3 style="height:65px"> @Model.ElementAt(i).TitulliPiktures</h3>
+                            <a href="@Model.ElementAt(i).UrlPath" data-size="1600x1067">
+                                <img alt="picture" src="@Model.ElementAt(i).UrlPath" height=222 width=222 class="figure-img">
+                            </a>
+                            <h4>@Model.ElementAt(i).Karakteristikat</h4>
+
+                            <p class="col-md-11">Lloji: @Model.ElementAt(i).LLojiPiktures</p>
+                        </center>
+                        <div class="row">
+                            <div class="col-md-6"> <center><p>@Model.ElementAt(i).DataPostimit</p></center></div>
+                            <div class="row col-md-6">
+                                <center>
+                                    <p class="text-break">@Model.ElementAt(i).CmimiPiktures €</p>
+                                    <p>@Model.ElementAt(i).Disponueshmeria</p>
+                                </center>
+                            </div>
+                        </div>
+                    </td>
+
+                    @if (i + 1 < Model.Count())
+                    {
+                        <td width="280px" height="400px">
+                            <center>
+                                <h3 style="height:65px"> @Model.ElementAt(i + 1).TitulliPiktures</h3>
+                                <a href="@Model.ElementAt(i + 1).UrlPath" data-size="1600x1067">
+                                    <img alt="picture" src="@Model.ElementAt(i + 1).UrlPath" height=222 width=222 class="figure-img">
+                                </a>
+                                <h4>@Model.ElementAt(i + 1).Karakteristikat</h4>
+
+                                <p class="col-md-11">Lloji: @Model.ElementAt(i + 1).LLojiPiktures</p>
+                            </center>
+                            <div class="row">
+                                <div class="col-md-6"> <center><p>@Model.ElementAt(i + 1).DataPostimit</p></center></div>
+                                <div class="row col-md-6">
+                                    <center>
+                                        <p class="text-break">@Model.ElementAt(i + 1).CmimiPiktures €</p>
+                                        <p>@Model.ElementAt(i + 1).Disponueshmeria</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </td>
+                    }
+
+                    @if (i + 2 < Model.Count())
+                    {
+                        <td width="280px" height="400px">
+                            <center>
+                                <h3 style="height:65px"> @Model.ElementAt(i + 2).TitulliPiktures</h3>
+                                <a href="@Model.ElementAt(i + 2).UrlPath" data-size="1600x1067">
+                                    <img alt="picture" src="@Model.ElementAt(i + 2).UrlPath" height=222 width=222 class="figure-img">
+                                </a>
+                                <h4>@Model.ElementAt(i + 2).Karakteristikat</h4>
+
+                                <p class="col-md-11">Lloji: @Model.ElementAt(i + 2).LLojiPiktures</p>
+                            </center>
+                            <div class="row">
+                                <div class="col-md-6"> <center><p>@Model.ElementAt(i + 2).DataPostimit</p></center></div>
+                                <div class="row col-md-6">
+                                    <center>
+                                        <p class="text-break">@Model.ElementAt(i + 2).CmimiPiktures €</p>
+                                        <p>@Model.ElementAt(i + 2).Disponueshmeria</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </td>
+                    }
+
+                    @if (i + 3 < Model.Count())
+                    {
+                        <td width="280px" height="400px">
+                            <center>
+                                <h3 style="height:65px"> @Model.ElementAt(i + 3).TitulliPiktures</h3>
+                                <a href="@Model.ElementAt(i + 3).UrlPath" data-size="1600x1067">
+                                    <img alt="picture" src="@Model.ElementAt(i + 3).UrlPath" height=222 width=222 class="figure-img">
+                                </a>
+                                <h4>@Model.ElementAt(i + 3).Karakteristikat</h4>
+
+                                <p class="col-md-11">Lloji: @Model.ElementAt(i + 3).LLojiPiktures</p>
+                            </center>
+                            <div class="row">
+                                <div class="col-md-6"> <center><p>@Model.ElementAt(i + 3).DataPostimit</p></center></div>
+                                <div class="row col-md-6">
+                                    <center>
+                                        <p class="text-break">@Model.ElementAt(i + 3).CmimiPiktures €</p>
+                                        <p>@Model.ElementAt(i + 3).Disponueshmeria</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,168 @@
+﻿@model IEnumerable<EkspozitaPikturave.ViewModels.WebPikturatArtistet>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Klientet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1 style="color:dimgrey">Klientet</h1></center>
+<hr />
+<center>
+    <table>
+
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i = i + 4)
+            {
+                @if(@Model.ElementAt(i) != null) { 
+            <tr class="row" style="padding-top:25px">
+
+                <td style="width:275px; padding-left:5px">
+
+                    <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:Lavender; padding:15px; height:400px ">
+
+                        <div class="col-md-12" style="height:240px">
+
+
+                            <div style="text-align:center" class="col-md-12">
+                                <a href="@Model.ElementAt(i).UrlPhoto" data-size="1600x1067">
+                                    <img alt="picture" src="@Model.ElementAt(i).UrlPhoto" height=175 width=175 class="figure-img rounded-circle">
+                                </a>
+                            </div>
+
+                            <center><h4> <b>@Model.ElementAt(i).Emri @Model.ElementAt(i).Mbiemri</b> </h4></center>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <h6 class="col-md-8"><b>@Model.ElementAt(i).NrTelefonit</b></h6>
+
+                            <p class="col-md-4" style="text-align:right">@Model.ElementAt(i).Roli</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p>@Model.ElementAt(i).Email </p>
+                        </div>
+                        <center><a class="btn btn-outline-success" asp-action="KontaktoArtistin" asp-route-email="@Model.ElementAt(i).Email">Dergo Mesazh</a></center>
+                    </div>
+                </td>
+                @if (@Model.ElementAt(i + 1) != null)
+                {
+                    @if (i + 2 <= Model.Count())
+                    {
+                        <td style="width:275px; padding-left:5px">
+
+                            <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:Lavender; padding:15px; height:400px ">
+
+                                <div class="col-md-12" style="height:240px">
+
+
+                                    <div style="text-align:center" class="col-md-12">
+                                        <a href="@Model.ElementAt(i+1).UrlPhoto" data-size="1600x1067">
+                                            <img alt="picture" src="@Model.ElementAt(i+1).UrlPhoto" height=175 width=175 class="figure-img rounded-circle">
+                                        </a>
+                                    </div>
+
+                                    <center><h4> <b>@Model.ElementAt(i + 1).Emri @Model.ElementAt(i + 1).Mbiemri</b> </h4></center>
+                                </div>
+
+                                <br />
+
+                                <div class="row">
+                                    <h6 class="col-md-8"><b>@Model.ElementAt(i + 1).NrTelefonit</b></h6>
+
+                                    <p class="col-md-4" style="text-align:right">@Model.ElementAt(i + 1).Roli</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>@Model.ElementAt(i + 1).Email </p>
+                                </div>
+                                <center><a class="btn btn-outline-success" asp-action="KontaktoArtistin" asp-route-email="@Model.ElementAt(i + 1).Email">Dergo Mesazh</a></center>
+                            </div>
+                        </td>
+                    }
+                
+                @if (@Model.ElementAt(i + 2) != null)
+                {
+                    @if (i + 3 <= Model.Count())
+                    {
+                        <td style="width:275px; padding-left:5px">
+
+                            <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:Lavender; padding:15px; height:400px ">
+
+                                <div class="col-md-12" style="height:240px">
+
+
+                                    <div style="text-align:center" class="col-md-12">
+                                        <a href="@Model.ElementAt(i + 2).UrlPhoto" data-size="1600x1067">
+                                            <img alt="picture" src="@Model.ElementAt(i + 2).UrlPhoto" height=175 width=175 class="figure-img rounded-circle">
+                                        </a>
+                                    </div>
+
+                                    <center><h4> <b>@Model.ElementAt(i + 2).Emri @Model.ElementAt(i + 2).Mbiemri</b> </h4></center>
+                                </div>
+
+                                <br />
+
+                                <div class="row">
+                                    <h6 class="col-md-8"><b>@Model.ElementAt(i + 2).NrTelefonit</b></h6>
+
+                                    <p class="col-md-4" style="text-align:right">@Model.ElementAt(i + 2).Roli</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>@Model.ElementAt(i + 2).Email </p>
+                                </div>
+                                <center><a class="btn btn-outline-success" asp-action="KontaktoArtistin" asp-route-email="@Model.ElementAt(i + 2).Email">Dergo Mesazh</a></center>
+                            </div>
+                        </td>
+
+                    }
+                
+                @if (@Model.ElementAt(i + 3) != null)
+                {
+                    @if (i + 4 <= Model.Count())
+                    {
+                        <td style="width:275px; padding-left:5px">
+
+                            <div style="font-family:'Comic Sans MS', cursive, sans-serif; background-color:Lavender; padding:15px; height:400px ">
+
+                                <div class="col-md-12" style="height:240px">
+
+
+                                    <div style="text-align:center" class="col-md-12">
+                                        <a href="@Model.ElementAt(i + 3).UrlPhoto" data-size="1600x1067">
+                                            <img alt="picture" src="@Model.ElementAt(i + 3).UrlPhoto" height=175 width=175 class="figure-img rounded-circle">
+                                        </a>
+                                    </div>
+
+                                    <center><h4> <b>@Model.ElementAt(i + 3).Emri @Model.ElementAt(i + 3).Mbiemri</b> </h4></center>
+                                </div>
+
+                                <br />
+
+                                <div class="row">
+                                    <h6 class="col-md-8"><b>@Model.ElementAt(i + 3).NrTelefonit</b></h6>
+
+                                    <p class="col-md-4" style="text-align:right">@Model.ElementAt(i + 3).Roli</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>@Model.ElementAt(i + 3).Email </p>
+                                </div>
+                                <center><a class="btn btn-outline-success" asp-action="KontaktoArtistin" asp-route-email="@Model.ElementAt(i + 3).Email">Dergo Mesazh</a></center>
+                            </div>
+                        </td>
+                    }
+                    }
+                    }
+                }
+
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br /><br />
+    <div style="text-align:center">
+        <nav aria-label="Pikturat navigation example" style="display:inline-block">
+            <vc:pager paging-list="@ViewBag.modelKlientet" />
+        </nav>
+    </div>
+</center>
