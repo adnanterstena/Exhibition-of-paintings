@@ -36,7 +36,7 @@ namespace EkspozitaPikturave.Controllers
 
 
         #region POSTIMI
-
+        [Authorize(Roles = "Piktor,Trashegimtar")]
         public IActionResult Postimi()
         {
             return View();
@@ -108,7 +108,7 @@ namespace EkspozitaPikturave.Controllers
 
         #region PIKTURAT E MIA
 
-
+        [Authorize(Roles = "Piktor,Trashegimtar")]
         public async Task<IActionResult> EditPikturat(int page = 1)
         {
 
@@ -122,10 +122,8 @@ namespace EkspozitaPikturave.Controllers
 
           
             return View(model);
-
-              
-
         }
+
         public async Task<IActionResult> EditPikturatID(int? id)
         {
             if (id == null)
@@ -145,7 +143,6 @@ namespace EkspozitaPikturave.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPikturatID(int id, [Bind("IdPiktura,UrlPath,TitulliPiktures,Pershkrimi,Karakteristikat,DataPostimit,Ekspozitat,LLojiPiktures,CmimiPiktures,Disponueshmeria,Shporta")] Pikturat pikturat)
         {
-
 
             var user = await _userManager.GetUserAsync(User);
             pikturat.ID_Useri = user.Id;
@@ -212,7 +209,7 @@ namespace EkspozitaPikturave.Controllers
 
 
         #region EKSPOZITAT
-
+        [Authorize(Roles = "Piktor,Trashegimtar")]
         public async Task<IActionResult> Ekspozitat(int page = 1)
         {
             string emailUser = User.Identity.Name;
@@ -328,9 +325,8 @@ namespace EkspozitaPikturave.Controllers
                 foreach (var item in fototPerEkspoziten)
                 {
                     _idPikturattt.Remove(item);
-                }
+                } 
                 
-              
                 return RedirectToAction(nameof(Ekspozitat));
             }
             return View(ekspozitat);
@@ -378,22 +374,23 @@ namespace EkspozitaPikturave.Controllers
         //Shporta per klientet
         public async Task<IActionResult> ShportaBlerjeve()
         {
-
             //Filrimi kerkesave
             AfatiKerkesavePrej5Diteve();
 
-
             var rezervimet = await _context.Shporta.Where(a => a.Id_UseriKlient == User.Identity.Name).ToListAsync();
 
-
             List<AdministrimiShportaBlerjeve> administrimiShportaBlerjeve = new List<AdministrimiShportaBlerjeve>();
-
             AdministrimiShportaBlerjeve admBlerjeve;
+
+            int PorositeNePritje = 0;
+            int PorositeEKonfirmuara = 0;
+            decimal ShumaPorosive = 0;
+            decimal TePaguara = 0;
+            decimal TePapaguara = 0;
 
             foreach (var item in rezervimet)
             {
                 var pikturat = await _context.Pikturat.FindAsync(item.Id_Piktura);
-
                
                 if(pikturat != null) //Kur piktura nuk esht fshire
                 {
@@ -402,22 +399,38 @@ namespace EkspozitaPikturave.Controllers
                     admBlerjeve.titulliPiktures = pikturat.TitulliPiktures;
                     admBlerjeve.urlPiktura = pikturat.UrlPath;
                     admBlerjeve.cmimi = item.Cmimi;
-                    if (item.Blerja == true) admBlerjeve.Blerja = "E konfirmuar";
-                    else admBlerjeve.Blerja = "Në pritje";
+                    if (item.Blerja == true)
+                    {
+                        admBlerjeve.Blerja = "E konfirmuar";
+                        PorositeEKonfirmuara++;
+                        TePaguara += item.Cmimi;
+                    }
+                    else { 
+                        admBlerjeve.Blerja = "Në pritje";
+                        PorositeNePritje++;
+                    }
 
-
+                    ShumaPorosive += item.Cmimi;
                     administrimiShportaBlerjeve.Add(admBlerjeve);
-                }
-               
+                }               
             }
+            TePapaguara = ShumaPorosive - TePaguara;
 
             administrimiShportaBlerjeve.Reverse();
 
-            return View(administrimiShportaBlerjeve);
+            ViewBag.totaliPorosive = administrimiShportaBlerjeve.Count();
+            ViewBag.PorositeEKonfirmuara = PorositeEKonfirmuara;
+            ViewBag.PorositeNePritje = PorositeNePritje;
+            ViewBag.ShumaPorosive = ShumaPorosive;
+            ViewBag.TePaguara = TePaguara;
+            ViewBag.TePapaguara = TePapaguara;
 
+
+            return View(administrimiShportaBlerjeve);
         }
 
         //Paraqitja e kerkesave te klienteve per blerjen e pikturave
+        [Authorize(Roles = "Piktor,Trashegimtar")]
         public async Task<IActionResult> MenagjimiBlerjeve()
         {
             //Filrimi kerkesave
@@ -433,6 +446,8 @@ namespace EkspozitaPikturave.Controllers
             List<AdministrimiMenagjimiBlerjeve> _administrimiMenagjimiBlerjeve = new List<AdministrimiMenagjimiBlerjeve>();
             AdministrimiMenagjimiBlerjeve administrimiMenagjimiBlerjeve;
 
+            decimal ShumaTotalePerTuShitur = 0;
+
             foreach (var item in pikturat)
             {
                 administrimiMenagjimiBlerjeve = new AdministrimiMenagjimiBlerjeve()
@@ -444,22 +459,56 @@ namespace EkspozitaPikturave.Controllers
                 };
 
                 _administrimiMenagjimiBlerjeve.Add(administrimiMenagjimiBlerjeve);
-
+                ShumaTotalePerTuShitur += item.CmimiPiktures;
             }
+
+
+            //--------- Raporti shitjeve.
+            decimal CmimiPicsTeShitura = 0;
+            decimal PicMeVlerenMax = 0;
+            string UrlPicMeVlerenMax = "";
+            string TitulliPicMeVlerenMax = "";
+
+            //pikturat qe jane te shitura nga piktori/trasheguesi
+            var TeDhenatEBlerjeve = await _context.Pikturat.Where(a => a.ID_Useri == user.Id && a.Disponueshmeria == "Shitur").ToListAsync();
+            foreach (var item in TeDhenatEBlerjeve)
+            {
+                //cmimi pikturave te shitur
+                CmimiPicsTeShitura += item.CmimiPiktures;
+
+                //cmimi dhe url-ja per pikturen me vlere me te madhe te shitur
+                if(item.CmimiPiktures > PicMeVlerenMax)
+                {
+                    PicMeVlerenMax = item.CmimiPiktures;
+                    UrlPicMeVlerenMax = item.UrlPath;
+                    TitulliPicMeVlerenMax = item.TitulliPiktures;
+                }
+            }
+
+            //Te shitura
+            ViewBag.CmimiPicsTeShitura = CmimiPicsTeShitura;
+            ViewBag.PicsTeShitura = TeDhenatEBlerjeve.Count();
+            
+            //Per tu shitur
+            ViewBag.PicsPerTuShitur = _administrimiMenagjimiBlerjeve.Count();
+            ViewBag.VleraPicsPerTuShitur = ShumaTotalePerTuShitur;
+
+            //Piktura me vleren me te madhe te shitur
+            ViewBag.PicMeVlerenMax = PicMeVlerenMax;
+            ViewBag.UrlPicMeVlerenMax = UrlPicMeVlerenMax;
+            ViewBag.TitulliPicMeVlerenMax = TitulliPicMeVlerenMax;
+            //-----------------
 
             return View(_administrimiMenagjimiBlerjeve);
         }
 
         public async Task<IActionResult> KonfirmimiBlerjeve(int? id)
         {
-
-
             //kolona blerja behet true, ne tabelen Shporta
             Shporta shporta = await _context.Shporta.FindAsync(id);
             shporta.Blerja = true;
 
             _context.Update(shporta);
-
 
             //Kolona Shporta, ne tabelen Pikturat behet null
             var piktura = await _context.Pikturat.Where(a => a.Shporta == id).ToListAsync();
@@ -467,20 +516,16 @@ namespace EkspozitaPikturave.Controllers
             piktura[0].Disponueshmeria = "Shitur";
             _context.Update(piktura[0]);
 
-
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(MenagjimiBlerjeve));
-
         }
 
         public async Task<IActionResult>  FshirjaKerkesesPerBlerje(int? id)
         {
-
             //Fshirja e porosise ne tabelen Shporta
             Shporta item = await _context.Shporta.FindAsync(id);
             _context.Shporta.Remove(item);
-
 
             //Kolona Shporta, ne tabelen Pikturat behet null, dhe disponueshmeria 'jo e shitur'
             var piktura = await _context.Pikturat.Where(a => a.Shporta == id).ToListAsync();
@@ -488,11 +533,9 @@ namespace EkspozitaPikturave.Controllers
             piktura[0].Disponueshmeria = "Jo e Shitur";
             _context.Update(piktura[0]);
 
-
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(MenagjimiBlerjeve));
-
         }
 
 
@@ -521,8 +564,7 @@ namespace EkspozitaPikturave.Controllers
                     piktura[0].Shporta = null;
                     piktura[0].Disponueshmeria = "Jo e Shitur";
                     _context.Update(piktura[0]);
-
-
+                    
                     await _context.SaveChangesAsync();
                 }
             }

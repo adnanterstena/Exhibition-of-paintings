@@ -42,7 +42,6 @@ namespace EkspozitaPikturave.Controllers
 
         public async Task<IActionResult> Ballina()
         {
-
             var queryPics = _context.Pikturat.AsNoTracking().OrderByDescending(s => s.IdPiktura);
             var modelPics = await PagingList.CreateAsync(queryPics, 4, 1);
             ViewBag.PikturatBallina = modelPics;
@@ -53,8 +52,6 @@ namespace EkspozitaPikturave.Controllers
 
             var queryPanoramike = _context.Pikturat.AsNoTracking().Where(a => a.Karakteristikat == "PANORAMIKE").OrderByDescending(s => s.IdPiktura);
             var modelPanoramike = await PagingList.CreateAsync(queryPanoramike, 4, 1);
-            modelPanoramike.Action = "Ballina";
-            modelPanoramike.PageParameterName = "PanPage";
             ViewBag.PanoramikeBallina = modelPanoramike;
 
             var queryNatyre = _context.Pikturat.AsNoTracking().Where(a => a.Karakteristikat == "NATYRE").OrderByDescending(s => s.IdPiktura);
@@ -190,7 +187,7 @@ namespace EkspozitaPikturave.Controllers
 
             WebPikturatEkspozita _pikturat;
 
-            //Lista qe ktheht te klienti, me pikturat qe kane id e ekespozites
+            //Lista qe kthehn te klienti, me pikturat qe kane id e ekespozites
             List<WebPikturatEkspozita> _pics = new List<WebPikturatEkspozita>();
 
             foreach (Pikturat item in pikturat)
@@ -224,13 +221,9 @@ namespace EkspozitaPikturave.Controllers
         private int TrashegimtaretPageSize = 8;
         public async Task<IActionResult> Trashegimtaret(int page = 1)
         {
-
             _usersTrashegimtaret = new List<WebPikturatArtistet>();
             var query = _appContext.Users.AsNoTracking().OrderByDescending(s => s.Id);
             PagingList<ApplicationUser> model = await PagingList.CreateAsync(query, TrashegimtaretPageSize, page);
-
-
-
 
             WebPikturatArtistet _usr;
 
@@ -261,12 +254,9 @@ namespace EkspozitaPikturave.Controllers
                 return await Trashegimtaret(page);
             }
 
-
             TrashegimtaretPageSize = 8;
             ViewBag.modelTrashegimtaret = model;
             model.Action = "Trashegimtaret";
-
-
 
 
             WebPikturatArtistet[] userTrashegimtaret = new WebPikturatArtistet[8];
@@ -293,9 +283,6 @@ namespace EkspozitaPikturave.Controllers
             var query = _appContext.Users.AsNoTracking().OrderByDescending(s => s.Id);
             PagingList<ApplicationUser> model = await PagingList.CreateAsync(query, klientPageSize, page);
          
-
-            
-
             WebPikturatArtistet _usr;
            
             foreach (var item in model)
@@ -342,8 +329,6 @@ namespace EkspozitaPikturave.Controllers
             klientPageSize = 8;
             ViewBag.modelKlientet = model;
             model.Action = "Klientet";
-
-
 
 
             WebPikturatArtistet[] userKlientet = new WebPikturatArtistet[8];
@@ -525,17 +510,11 @@ namespace EkspozitaPikturave.Controllers
                 _context.Update(piktura);
                 await _context.SaveChangesAsync();
 
-
                 //vendosja e id dhe kohes se rezervimit ne objekt.
                 KronologjiaShportes kronologjiaKerkeses = new KronologjiaShportes(shporta.Id_Shporta);
             }
 
-
-
             return RedirectToAction("ShportaBlerjeve", "Administrimi");
-
-
-
            
         }
 
@@ -553,12 +532,10 @@ namespace EkspozitaPikturave.Controllers
                 return NotFound();
             }
 
-
             WebPikturatKontakto webPikturatKontakto = new WebPikturatKontakto();
             webPikturatKontakto.from = User.Identity.Name;
 
             webPikturatKontakto.to = email;
-
 
             return View(webPikturatKontakto);
         }
