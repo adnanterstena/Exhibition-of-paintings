@@ -117,6 +117,22 @@
                             </tbody>
                         </table>
                 </div>
+                <div style="padding:15px; font-family:'Helvetica', cursive, sans-serif;">
+                    <div class="row">
+                        <h4 class="col-md-8">Totali shitjëve: <b style="border:1px solid #808080">@ViewBag.CmimiPicsTeShitura</b> €</h4>
+
+                        <h4 class="col-md-4"><b style="border:1px solid #808080">@ViewBag.PicsTeShitura</b> Piktura të shitura</h4>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <h4 class="col-md-12">Në pritje për tu shitur janë <b style="border:1px solid #808080">@ViewBag.PicsPerTuShitur</b> Piktura me vlerë <b style="border:1px solid #808080">@ViewBag.VleraPicsPerTuShitur</b> € </h4>
+
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <h4 class="col-md-12 ">Piktura me vlerë më të madhe të shitur është <b style="border:1px solid #808080">@ViewBag.PicMeVlerenMax</b> € &nbsp; <b>@ViewBag.TitulliPicMeVlerenMax</b>  <img src="@ViewBag.UrlPicMeVlerenMax" height="50" width="50" /></h4>
+                    </div>
+                </div>
 
             </div>
 
@@ -126,7 +142,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - EkspozitaPikturave - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - Ekspozita Pikturave
         </div>
     </footer>
 
