@@ -4,6 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+    <div class="float-lg-right" style="margin:15px; padding:15px; text-align:center; font-family:'Helvetica', cursive, sans-serif;">
+        <h4 style="padding:2px">Numri Total <br />i porosive  <b style="border:1px solid #808080">@ViewBag.totaliPorosive</b></h4>
+        <hr />
+        <h4 style="padding:2px">Të konfirmuara<br /> <b style="border:1px solid #808080">@ViewBag.PorositeEKonfirmuara</b></h4>
+        <hr />
+        <h4 style="padding:2px">Në pritje<br /> <b style="border:1px solid #808080">@ViewBag.PorositeNePritje</b></h4>
+        <hr />
+        <h4 style="padding:2px">Shuma totale<br /> <b style="border:1px solid #808080">@ViewBag.ShumaPorosive</b> €</h4>
+        <hr />
+        <h4 style="padding:2px">Të paguara<br /> <b style="border:1px solid #808080">@ViewBag.TePaguara</b> €</h4>
+        <hr />
+        <h4>Jo të paguara <br /> <b style="border:1px solid #808080">@ViewBag.TePapaguara</b> €</h4>
+
+    </div>
+
 <div style="overflow-y: scroll; height:590px; border-style:inset; padding:25px">
 
     <table class="table">
